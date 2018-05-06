@@ -32,9 +32,9 @@ PlayRoutine::end(int player) {
   std::cout << "Player " << player << " wins !" << std::endl;
 }
 
-struct Chess::move
+struct move
 PlayRoutine::askMove() {
-  struct Chess::move move = getMove();
+  struct move move = getMove();
   while(!chess_.isDoable(move)) {
     std::cout << "Impossible move !" << std::endl;
     move = getMove();
@@ -52,7 +52,7 @@ PlayRoutine::playP2() {
   chess_.apply(askMove());
 }
 
-struct Chess::move
+struct move
 PlayRoutine::getMove() {  
   while (true) {
     std::string line = std::string();
@@ -79,7 +79,7 @@ PlayRoutine::getMove() {
     catch(...) {
       continue;
     }
-    struct Chess::move move;
+    struct move move;
     move.posX = posX;
     move.posY = posY;
     move.newPosX = newPosX;

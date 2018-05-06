@@ -14,7 +14,11 @@ class Piece {
     virtual bool canEatAt(int x, int y, int nx, int ny);
 
     char toChar();
-    
+
+    bool lines_get() { return lines_; }
+    bool diags_get() { return diags_; } 
+
+    enum color color_get() { return color_; } 
   protected:
     char c_; /* For printing */
     enum color color_;

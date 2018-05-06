@@ -1,26 +1,34 @@
 #pragma once
 
+class Chess;
+class MotionComputer;
+
 #include <experimental/optional>
 
+#include <motionComputer/motionComputer.hh>
+
 #include "piece.hh"
+
+struct move {
+  int posX;
+  int posY;
+  int newPosX;
+  int newPosY;
+};
 
 class Chess {
   public:
     Chess();
     ~Chess();
 
-    struct move {
-      int posX;
-      int posY;
-      int newPosX;
-      int newPosY;
-    };
-
     bool end(); 
     bool isDoable(struct move move);
     void apply(struct move move);
     void print();
 
+    Piece ***board_get() { return board_; } 
+
   private:
     Piece  ***board_;
+    MotionComputer motionComputer_;
 };

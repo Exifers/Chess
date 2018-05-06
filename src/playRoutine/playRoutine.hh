@@ -10,8 +10,8 @@ class PlayRoutine {
   private:
     Chess chess_;
     void end(int player);
-    struct Chess::move askMove();
+    struct move askMove();
     void playP1();
     void playP2();
-    struct Chess::move getMove(); 
+    struct move getMove(); 
 };

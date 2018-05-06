@@ -2,7 +2,9 @@
 
 #include "chess.hh"
 
-Chess::Chess() {
+Chess::Chess()
+  : board_(nullptr), motionComputer_(MotionComputer(this))
+{
   board_ = new Piece**[8];
   for (int i = 0; i < 8; i++) {
     board_[i] = new Piece*[8];
@@ -53,33 +55,8 @@ Chess::end() {
 
 bool
 Chess::isDoable(struct move move) {
-  std::cout << "Testing if doable" << std::endl;
-  int posX = move.posX;
-  int posY = move.posY;
-  if (board_[posX][posY]->toChar() == 'k') /* knight */ {
-    std::cout << "Found Knight : passing" << std::endl;
-    return true;
-  }
-  int newPosX = move.newPosX;
-  int newPosY = move.newPosY;
-  //TODO check bounds
-  int dx = newPosX - posX;
-  int dy = newPosY - posY;
-  int signX = dx > 0 ? 1 : dx < 0 ? -1 : 0; 
-  int signY = dy > 0 ? 1 : dy < 0 ? -1 : 0;
-  int curX = posX + signX;
-  int curY = posY + signY;
-  std::cout << "curX : " << curX << ", curY : " << curY << ", signX : " << signX << ", signY : " << signY << std::endl;
-  std::cout << "newPosX  : " << newPosX << ", newPosY : " << newPosY << std::endl;
-  while (curX != newPosX || curY != newPosY) {
-    std::cout << "Testing free slot" << std::endl;
-    if (board_[curX][curY] != nullptr)
-      return false; // a piece obstructs the view
-    curX += signX;
-    curY += signY;
-  }
-  //TODO check if King is threatened
-  return true;
+  std::cout << "Checking doability" << std::endl;
+  return motionComputer_.isDoable(move); 
 }
 
 void
