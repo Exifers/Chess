@@ -9,11 +9,15 @@ MotionComputer::MotionComputer(Chess *chess)
 
 bool
 MotionComputer::isDoable(struct move motion) {
-  if (!checkBounds(motion))
+  if (!checkBounds(motion)) {
+    std::cerr << "Motion out of bounds : ";
     return false;
+  }
   auto piece = chess_->board_get()[motion.posX][motion.posY];
-  if (piece == nullptr) /* No piece at this place ! */
+  if (piece == nullptr) /* No piece at this place ! */ {
+    std::cerr << "There's no piece in here : ";
     return false;
+  }
 
   try {
     Knight *knight = dynamic_cast<Knight*>(piece);
@@ -59,14 +63,14 @@ MotionComputer::isDoableGeneric(Piece *piece, struct move motion) {
       || testPosY_ != motion.newPosY) {
     incTestPos(motion); 
     if (chess_->board_get()[testPosX_][testPosY_] != nullptr) {
-      /* A piece is blocking the view */
+      std::cerr << "A piece is blocking : ";
       return false;
     }
   }
   auto endPiece = chess_->board_get()[testPosX_][testPosY_];
   if (endPiece != nullptr) {
     if (endPiece->color_get() == piece->color_get()) {
-      /* Cannot eat a piece of the same color */
+      std::cerr << "Cannot eat piece of the same color : ";
       return false;
     }
   }
@@ -77,12 +81,18 @@ MotionComputer::isDoableGeneric(Piece *piece, struct move motion) {
 
 bool
 MotionComputer::checkMotion(Piece *piece, struct move motion) {
-  if (!checkBounds(motion))
+  if (!checkBounds(motion)) {
+    std::cerr << "Motion out of bounds : ";
     return false;
-  if (!checkNotPass(motion))
+  }
+  if (!checkNotPass(motion)) {
+    std::cerr << "You cannot pass your turn : ";
     return false;
-  if (!checkPieceDirection(piece, motion))
+  }
+  if (!checkPieceDirection(piece, motion)) {
+    std::cerr << "Piece cannot go that way : ";
     return false;
+  }
   return true;
 }
 
@@ -145,21 +155,35 @@ bool
 MotionComputer::isDoablePawn(Piece *piece, struct move motion) {
   int dx = motion.newPosX - motion.posX;
   int dy = motion.newPosY - motion.posY;
-  if (abs(dx) != 1 || abs(dy) != 1)
+  if (abs(dx) != 1 && abs(dx) != 0) {
+    std::cerr << "Pawn can move only one unit horizontally : ";
     return false;
+  }
+  if (abs(dy) != 1 && abs(dy) != 0) {
+    std::cerr << "Pawn can move only one unit vertically : ";
+    return false;
+  }
 
   /* Checking if it goes in the right direction : */
-  if (piece->color_get() == Piece::BLACK && dy != 1) 
+  if (piece->color_get() == Piece::BLACK && dx != 1) { 
+    std::cerr << "Pawn cannot go backward : ";
     return false;
-  if (piece->color_get() == Piece::WHITE && dy != -1) 
+  }
+  if (piece->color_get() == Piece::WHITE && dx != -1) {
+    std::cerr << "Pawn cannot go backward : ";
     return false;
+  }
 
-  if (abs(dx) == 1) /* Supposed to eat */ {
+  if (abs(dy) == 1) /* Supposed to eat */ {
     auto endPiece = chess_->board_get()[motion.newPosX][motion.newPosY];
-    if (endPiece == nullptr)
+    if (endPiece == nullptr) {
+      std::cerr << "Pawn cannot go along a diagonal without eating : ";
       return false;
-    if (endPiece->color_get() == piece->color_get())
+    }
+    if (endPiece->color_get() == piece->color_get()) {
+      std::cerr << "You cannot eat your own piece ! : ";
       return false;
+    }
   }
   return true;
 }

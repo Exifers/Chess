@@ -7,7 +7,7 @@ class Piece {
       WHITE
     };
 
-    Piece(char c, enum color color);
+    Piece(char c, enum color color, bool lines, bool diags);
     virtual ~Piece() = 0;
 
     virtual bool canMoveAt(int x, int y, int nx, int ny);

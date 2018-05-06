@@ -60,7 +60,11 @@ Chess::isDoable(struct move move) {
 
 void
 Chess::apply(struct move move) {
-  move = move;
+  auto& endPiece = board_[move.newPosX][move.newPosY];
+  if (endPiece != nullptr)
+    delete endPiece;
+  endPiece = board_[move.posX][move.posY];
+  board_[move.posX][move.posY] = nullptr;
 }
 
 void
