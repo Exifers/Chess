@@ -19,7 +19,7 @@ class MotionComputer {
     void incTestPos(struct move motion);
 
     /* Special piece behaviors : */
-    bool isDoableKnight(struct move motion);
+    bool isDoableKnight(Piece *piece, struct move motion);
     bool isDoablePawn(Piece *piece, struct move motion);
     // TODO rock
     // TODO check if King is threatened

@@ -15,12 +15,10 @@ MotionComputer::isDoable(struct move motion) {
   if (piece == nullptr) /* No piece at this place ! */
     return false;
 
-  std::cout << "bounds and piece ok" << std::endl;
-
   try {
     Knight *knight = dynamic_cast<Knight*>(piece);
     if (knight) {
-      return isDoableKnight(motion);
+      return isDoableKnight(piece, motion);
     }
     Pawn *pawn = dynamic_cast<Pawn*>(piece);
     if (pawn) {
@@ -124,14 +122,44 @@ MotionComputer::checkNotPass(struct move motion) {
 }
 
 bool
-MotionComputer::isDoableKnight(struct move motion) {
-  motion = motion;
-  return true;
+MotionComputer::isDoableKnight(Piece* piece, struct move motion) {
+  
+  auto endPiece = chess_->board_get()[motion.newPosX][motion.newPosY];
+  if (endPiece != nullptr) {
+    if (endPiece->color_get() == piece->color_get())
+      return false;
+  }
+
+  int dx = abs(motion.newPosX - motion.posX);
+  int dy = abs(motion.newPosY - motion.posY);
+  if (dx == 1 && dy == 2) {
+    return true;
+  }
+  if (dx == 2 && dy == 1) {
+    return true;
+  }
+  return false;
 }
 
 bool
 MotionComputer::isDoablePawn(Piece *piece, struct move motion) {
-  piece = piece;
-  motion = motion;
+  int dx = motion.newPosX - motion.posX;
+  int dy = motion.newPosY - motion.posY;
+  if (abs(dx) != 1 || abs(dy) != 1)
+    return false;
+
+  /* Checking if it goes in the right direction : */
+  if (piece->color_get() == Piece::BLACK && dy != 1) 
+    return false;
+  if (piece->color_get() == Piece::WHITE && dy != -1) 
+    return false;
+
+  if (abs(dx) == 1) /* Supposed to eat */ {
+    auto endPiece = chess_->board_get()[motion.newPosX][motion.newPosY];
+    if (endPiece == nullptr)
+      return false;
+    if (endPiece->color_get() == piece->color_get())
+      return false;
+  }
   return true;
 }

@@ -55,7 +55,6 @@ Chess::end() {
 
 bool
 Chess::isDoable(struct move move) {
-  std::cout << "Checking doability" << std::endl;
   return motionComputer_.isDoable(move); 
 }
 
