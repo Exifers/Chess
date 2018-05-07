@@ -18,6 +18,10 @@ MotionComputer::isDoable(struct move motion) {
     std::cerr << "There's no piece in here : ";
     return false;
   }
+  if (!checkColor(motion)) {
+    std::cerr << "You can move only your own piece ! : ";
+    return false;
+  }
 
   try {
     Knight *knight = dynamic_cast<Knight*>(piece);
@@ -80,6 +84,12 @@ MotionComputer::isDoableGeneric(Piece *piece, struct move motion) {
 }
 
 bool
+MotionComputer::checkColor(struct move motion) {
+  return chess_->board_get()[motion.posX][motion.posY]->color_get()
+    == motion.player;
+}
+
+bool
 MotionComputer::checkMotion(Piece *piece, struct move motion) {
   if (!checkBounds(motion)) {
     std::cerr << "Motion out of bounds : ";
@@ -136,8 +146,10 @@ MotionComputer::isDoableKnight(Piece* piece, struct move motion) {
   
   auto endPiece = chess_->board_get()[motion.newPosX][motion.newPosY];
   if (endPiece != nullptr) {
-    if (endPiece->color_get() == piece->color_get())
+    if (endPiece->color_get() == piece->color_get()) {
+      std::cerr << "You cannot eat your own piece ! : ";
       return false;
+    }
   }
 
   int dx = abs(motion.newPosX - motion.posX);
@@ -148,6 +160,7 @@ MotionComputer::isDoableKnight(Piece* piece, struct move motion) {
   if (dx == 2 && dy == 1) {
     return true;
   }
+  std::cerr << "Knight must move one unit in one way and two units the other way : ";
   return false;
 }
 
@@ -165,11 +178,11 @@ MotionComputer::isDoablePawn(Piece *piece, struct move motion) {
   }
 
   /* Checking if it goes in the right direction : */
-  if (piece->color_get() == Piece::BLACK && dx != 1) { 
+  if (piece->color_get() == BLACK && dx != 1) { 
     std::cerr << "Pawn cannot go backward : ";
     return false;
   }
-  if (piece->color_get() == Piece::WHITE && dx != -1) {
+  if (piece->color_get() == WHITE && dx != -1) {
     std::cerr << "Pawn cannot go backward : ";
     return false;
   }

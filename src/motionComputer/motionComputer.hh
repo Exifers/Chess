@@ -35,6 +35,7 @@ class MotionComputer {
     bool checkPieceDirection(Piece *piece, struct move motion);
     bool checkBounds(struct move motion);
     bool checkNotPass(struct move motion);
+    bool checkColor(struct move motion);
 };
 
 #include <chess/chess.hh>

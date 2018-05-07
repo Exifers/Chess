@@ -14,6 +14,7 @@ struct move {
   int posY;
   int newPosX;
   int newPosY;
+  enum color player;
 };
 
 class Chess {

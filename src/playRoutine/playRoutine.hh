@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chess/chess.hh>
+#include <chess/piece.hh>
 
 class PlayRoutine {
   public:
@@ -10,7 +11,7 @@ class PlayRoutine {
   private:
     Chess chess_;
     void end(int player);
-    struct move askMove();
+    struct move askMove(enum color color);
     void playP1();
     void playP2();
     struct move getMove(); 

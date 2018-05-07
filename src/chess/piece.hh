@@ -1,12 +1,12 @@
 #pragma once
 
+enum color {
+  BLACK,
+  WHITE
+};
+
 class Piece {
   public:
-    enum color {
-      BLACK,
-      WHITE
-    };
-
     Piece(char c, enum color color, bool lines, bool diags);
     virtual ~Piece() = 0;
 

@@ -33,23 +33,25 @@ PlayRoutine::end(int player) {
 }
 
 struct move
-PlayRoutine::askMove() {
+PlayRoutine::askMove(enum color color) {
   struct move move = getMove();
+  move.player = color;
   while(!chess_.isDoable(move)) {
     std::cout << "Impossible move !" << std::endl;
     move = getMove();
+    move.player = color;
   }
   return move;
 }
 
 void
 PlayRoutine::playP1() { 
-  chess_.apply(askMove());
+  chess_.apply(askMove(WHITE));
 }
 
 void
 PlayRoutine::playP2() {
-  chess_.apply(askMove());
+  chess_.apply(askMove(BLACK));
 }
 
 struct move

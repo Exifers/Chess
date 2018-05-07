@@ -10,32 +10,32 @@ Chess::Chess()
     board_[i] = new Piece*[8];
     for (int j = 0; j < 8; j++) {
       if (i == 1) { // black pawns
-        board_[i][j] = new Pawn(Piece::BLACK);
+        board_[i][j] = new Pawn(BLACK);
       }
       else if (i == 6) { // white pawns
-        board_[i][j] = new Pawn(Piece::WHITE); 
+        board_[i][j] = new Pawn(WHITE); 
       }
       else {
         board_[i][j] = nullptr;
       }
     }
   }
-  board_[0][0] = new Rook(Piece::BLACK);
-  board_[0][1] = new Knight(Piece::BLACK);
-  board_[0][2] = new Bishop(Piece::BLACK);
-  board_[0][3] = new King(Piece::BLACK);
-  board_[0][4] = new Queen(Piece::BLACK);
-  board_[0][5] = new Bishop(Piece::BLACK);
-  board_[0][6] = new Knight(Piece::BLACK);
-  board_[0][7] = new Rook(Piece::BLACK);
-  board_[7][0] = new Rook(Piece::WHITE);
-  board_[7][1] = new Knight(Piece::WHITE);
-  board_[7][2] = new Bishop(Piece::WHITE);
-  board_[7][3] = new King(Piece::WHITE);
-  board_[7][4] = new Queen(Piece::WHITE);
-  board_[7][5] = new Bishop(Piece::WHITE);
-  board_[7][6] = new Knight(Piece::WHITE);
-  board_[7][7] = new Rook(Piece::WHITE);
+  board_[0][0] = new Rook(BLACK);
+  board_[0][1] = new Knight(BLACK);
+  board_[0][2] = new Bishop(BLACK);
+  board_[0][3] = new King(BLACK);
+  board_[0][4] = new Queen(BLACK);
+  board_[0][5] = new Bishop(BLACK);
+  board_[0][6] = new Knight(BLACK);
+  board_[0][7] = new Rook(BLACK);
+  board_[7][0] = new Rook(WHITE);
+  board_[7][1] = new Knight(WHITE);
+  board_[7][2] = new Bishop(WHITE);
+  board_[7][3] = new King(WHITE);
+  board_[7][4] = new Queen(WHITE);
+  board_[7][5] = new Bishop(WHITE);
+  board_[7][6] = new Knight(WHITE);
+  board_[7][7] = new Rook(WHITE);
 }
 
 Chess::~Chess() {
