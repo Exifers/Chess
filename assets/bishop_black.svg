@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="27.056mm"
+   height="49.43mm"
+   viewBox="0 0 27.056 49.43"
+   version="1.1"
+   id="svg341"
+   inkscape:version="0.92.3 (unknown)"
+   sodipodi:docname="bishop_black.svg">
+  <defs
+     id="defs335" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="400"
+     inkscape:cy="560"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1535"
+     inkscape:window-height="876"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata338">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-247.57)">
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,-32.641572,242.49583)"
+       id="g5772">
+      <path
+         d="m 174,49.40266 -9.5,-7.475665 V 23.44549 Q 164.5,19.5 174,19.5 q 9.5,0 9.5,3.94549 v 18.481505 z"
+         stroke-miterlimit="10"
+         pointer-events="none"
+         id="path250"
+         inkscape:connector-curvature="0"
+         style="fill:#000000;stroke:#000000;stroke-width:0.64444917;stroke-miterlimit:10" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 159,53 q 28,0 28,28 0,28 -28,28 z"
+         stroke-miterlimit="10"
+         transform="rotate(90,173,81)"
+         pointer-events="none"
+         id="path252"
+         style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 147,128 55,50 -55,50 z"
+         stroke-miterlimit="10"
+         transform="rotate(-90,174.5,178)"
+         pointer-events="none"
+         id="path254"
+         style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+      <rect
+         x="157"
+         y="77"
+         width="35"
+         height="101"
+         pointer-events="none"
+         id="rect256"
+         style="fill:#000000;stroke:#000000" />
+      <path
+         d="m 173.275,32.536785 a 30,30 0 0 0 -18.68945,6.535156 l 14.35547,24.865235 -4.33204,2.5 -13.74218,-23.802735 a 30,30 0 0 0 -7.5918,19.902344 30,30 0 0 0 30,30 30,30 0 0 0 30,-30 30,30 0 0 0 -30,-30 z"
+         id="ellipse258"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 160,66 30,39.5 -30,39.5 z"
+         stroke-miterlimit="10"
+         transform="rotate(-90,175,105.5)"
+         pointer-events="none"
+         id="path262"
+         style="fill:#000000;stroke:#000000;stroke-miterlimit:10" />
+    </g>
+  </g>
+</svg>
