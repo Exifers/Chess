@@ -3,7 +3,8 @@
 #include "chess.hh"
 
 Chess::Chess()
-  : board_(nullptr), motionComputer_(MotionComputer(this))
+  : board_(nullptr), motionComputer_(MotionComputer(this)),
+    chessAnalizer_(ChessAnalizer(this))
 {
   board_ = new Piece**[8];
   for (int i = 0; i < 8; i++) {
@@ -50,7 +51,9 @@ Chess::~Chess() {
 
 bool
 Chess::end() {
-  return false;
+  return 
+    chessAnalizer_.endWhite() 
+ || chessAnalizer_.endBlack();
 }
 
 bool

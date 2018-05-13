@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 enum color {
   BLACK,
   WHITE
@@ -7,7 +9,7 @@ enum color {
 
 class Piece {
   public:
-    Piece(char c, enum color color, bool lines, bool diags);
+    Piece(char c, std::string name, enum color color, bool lines, bool diags);
     virtual ~Piece() = 0;
 
     virtual bool canMoveAt(int x, int y, int nx, int ny);
@@ -21,6 +23,7 @@ class Piece {
     enum color color_get() { return color_; } 
   protected:
     char c_; /* For printing */
+    std::string name_; /* matching assets/ filenames */
     enum color color_;
     /* Motion behavior : */
     bool lines_;

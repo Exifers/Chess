@@ -6,6 +6,7 @@ class MotionComputer;
 #include <experimental/optional>
 
 #include <motionComputer/motionComputer.hh>
+#include <chessAnalizer/chessAnalizer.hh>
 
 #include "piece.hh"
 
@@ -32,4 +33,5 @@ class Chess {
   private:
     Piece  ***board_;
     MotionComputer motionComputer_;
+    ChessAnalizer chessAnalizer_;
 };

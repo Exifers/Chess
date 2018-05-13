@@ -6,8 +6,8 @@
   | Piece |
   ---------*/
 
-Piece::Piece(char c, enum color color, bool lines, bool diags)
-  : c_(c), color_(color), lines_(lines), diags_(diags)
+Piece::Piece(char c, std::string name, enum color color, bool lines, bool diags)
+  : c_(c), name_(name), color_(color), lines_(lines), diags_(diags)
 {}
 
 Piece::~Piece()
@@ -34,7 +34,7 @@ Piece::canEatAt(int x, int y, int nx, int ny) {
   --------*/
 
 Rook::Rook(enum color color)
-  : Piece('r', color, true, false)
+  : Piece('r', "rock", color, true, false)
 {}
 
 bool
@@ -49,7 +49,7 @@ Rook::canMoveAt(int x, int y, int nx, int ny) {
   ----------*/
 
 Knight::Knight(enum color color)
-  : Piece('k', color, false, false)
+  : Piece('k', "knight", color, false, false)
 {}
 
 
@@ -72,7 +72,7 @@ Knight::canMoveAt(int x, int y, int nx, int ny) {
   ---------*/
 
 Queen::Queen(enum color color)
-  : Piece('q', color, true, true)
+  : Piece('q', "queen", color, true, true)
 {}
 
 bool
@@ -92,7 +92,7 @@ Queen::canMoveAt(int x, int y, int nx, int ny) {
   --------*/
 
 King::King(enum color color)
-  : Piece('K', color, true, true)
+  : Piece('K', "king", color, true, true)
 {}
 
 bool
@@ -109,7 +109,7 @@ King::canMoveAt(int x, int y, int nx, int ny) {
   ----------*/
 
 Bishop::Bishop(enum color color)
-  : Piece('b', color, false, true)
+  : Piece('b', "bishop", color, false, true)
 {}
 
 bool
@@ -126,7 +126,7 @@ Bishop::canMoveAt(int x, int y, int nx, int ny) {
   --------*/
 
 Pawn::Pawn(enum color color)
-  : Piece('p', color, true, false)
+  : Piece('p', "pawn", color, true, false)
 {}
 
 bool

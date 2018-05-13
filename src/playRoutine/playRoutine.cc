@@ -8,6 +8,9 @@ PlayRoutine::PlayRoutine(Chess& chess)
   : chess_(chess)
 {}
 
+PlayRoutine::~PlayRoutine()
+{}
+
 void
 PlayRoutine::showTitle() {
   std::cout << "CHESS GAME!" << std::endl;

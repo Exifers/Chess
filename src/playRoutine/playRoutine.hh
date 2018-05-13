@@ -6,6 +6,7 @@
 class PlayRoutine {
   public:
     PlayRoutine(Chess& chess);
+    ~PlayRoutine();
     static void showTitle();
     void run();
   private:
