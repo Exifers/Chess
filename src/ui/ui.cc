@@ -1,6 +1,7 @@
 #include "ui.hh"
 
 #include <cstdio>
+#include <cstring>
 
 UI::UI(Chess& chess)
   : chess_(chess)
@@ -57,21 +58,16 @@ UI::activate_cb(GtkApplication *app, gpointer userData) {
 GtkWidget *
 UI::buildGrid(struct tileData *allUserData) {
   GtkTargetEntry targets[] = {
-    { (char *) "", GTK_TARGET_SAME_APP, 0 }
+    { (char *) "universal", 0, 1 }
   };
   GtkTargetList *targetList = gtk_target_list_new(targets, 1);
   gtk_target_list_add_text_targets(targetList, 26);
 
   GtkWidget *grid = gtk_grid_new();
-  /*
+  
   for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
-  */
-  int i = 0;
-  int j = 0;
+    for (int j = 0; j < 8; j++) { 
       GtkWidget *drawing_area = gtk_drawing_area_new();
-      GtkWidget *drawing_area2 = gtk_drawing_area_new();
-
       gtk_widget_set_size_request(drawing_area, 50, 50);
       g_signal_connect(drawing_area, "draw", G_CALLBACK(draw_cb),
         &allUserData[i * 8 + j]);
@@ -91,24 +87,19 @@ UI::buildGrid(struct tileData *allUserData) {
         &allUserData[i * 8 + j]);
       g_signal_connect(drawing_area, "drag-failed", G_CALLBACK(drag_failed_cb),
         &allUserData[i * 8 + j]);
+      g_signal_connect(drawing_area, "drag-motion", G_CALLBACK(drag_motion_cb),
+        &allUserData[i * 8 + j]);
 
-      g_signal_connect(drawing_area2, "drag-motion", G_CALLBACK(drag_motion_cb),
+      gtk_drag_dest_set(drawing_area, GTK_DEST_DEFAULT_DROP, nullptr, 0,
+        GDK_ACTION_COPY);
+      gtk_drag_dest_set_target_list(drawing_area, targetList);
+
+      g_signal_connect(drawing_area, "draw", G_CALLBACK(draw_cb),
         &allUserData[i * 8 + j]);
 
       gtk_grid_attach((GtkGrid *) grid, drawing_area, i, j, 1, 1);
-
-      i++;
-      gtk_drag_dest_set(drawing_area2, GTK_DEST_DEFAULT_DROP, nullptr, 0,
-        GDK_ACTION_COPY);
-      gtk_drag_dest_set_target_list(drawing_area2, targetList);
-      g_signal_connect(drawing_area2, "draw", G_CALLBACK(draw_cb),
-        &allUserData[i * 8 + j]);
-      gtk_widget_set_size_request(drawing_area2, 50, 50);
-      gtk_grid_attach((GtkGrid *) grid, drawing_area2, i, j, 1, 1);
-  /*
     }
   }
-  */
   return grid;
 }
 
@@ -121,7 +112,6 @@ UI::drag_motion_cb(GtkWidget *widget, GdkDragContext *context, gint x,
   y = y;
   time = time;
   userData = userData;
-  std::cout << "motion : " << x << ", " << y << std::endl;
   gdk_drag_status(context, GDK_ACTION_MOVE, 0);
   return TRUE;
 }
@@ -148,6 +138,7 @@ UI::drag_failed_cb(GtkWidget *widget, GdkDragContext *context,
 gboolean
 UI::drag_drop_cb(GtkWidget *widget, GdkDragContext *context, gint x, gint y,
   guint time, gpointer userData) {
+
   widget = widget;
   context = context;
   x = x;
@@ -162,7 +153,21 @@ void
 UI::drag_data_received_cb(GtkWidget *widget, GdkDragContext *context,
   gint x, gint y, GtkSelectionData *data, guint info, guint time,
   gpointer userData) {
-  std::cout << "Data received" << std::endl;
+
+
+  // we want the coordinates of the widget
+  /*
+  GtkWidget *grid = gtk_widget_get_ancestor(widget, GTK_TYPE_GRID); // the grid
+  GValue value;
+  gtk_container_child_get_property((GtkContainer *) grid, widget, "width", &value);
+  std::cout << "value : " << G_IS_VALUE(&value) << std::endl;
+  */
+  std::cout << "info " << info << std::endl;
+
+  std::cout << "drag received at " << x << ", " << y << std::endl;
+
+  gdk_drag_status(context, GDK_ACTION_MOVE, 0);
+
   widget = widget;
   context = context;
   x = x;
@@ -177,7 +182,10 @@ void
 UI::drag_data_get_cb(GtkWidget *widget, GdkDragContext *context,
   GtkSelectionData *data, guint info, guint time,
   gpointer userData) {
-  std::cout << "Data get" << std::endl;
+  // don't know what I'm doing here, but it's mandatory to have data_received
+  // signal triggered afterwards
+  gtk_selection_data_set(data, 0, 0, (const unsigned char*) "", 0);
+
   widget = widget;
   context = context;
   data = data;
@@ -189,7 +197,6 @@ UI::drag_data_get_cb(GtkWidget *widget, GdkDragContext *context,
 void
 UI::drag_begin_cb(GtkWidget *widget, GdkDragContext *context, gpointer data) {
   struct tileData *tileData = (struct tileData *) data;
-
   std::cout << "Dragging element at " << tileData->posX << ", "
     << tileData->posY << std::endl;
   widget = widget;
@@ -197,13 +204,8 @@ UI::drag_begin_cb(GtkWidget *widget, GdkDragContext *context, gpointer data) {
   gtk_widget_queue_draw(widget);
 }
 
-/* There must be better ways of doing drag and drop but I'm tired of
-** reading the documentation. */
 void
 UI::drag_end_cb(GtkWidget *widget, GdkDragContext *context, gpointer data) {
-  struct tileData *tileData = (struct tileData *) data;
-  std::cout << "Ending drag at " << tileData->posX << ", "
-    << tileData->posY << std::endl;
   widget = widget;
   context = context;
   data = data;
